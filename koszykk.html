@@ -111,7 +111,7 @@
                 cartList.innerHTML = '';
                 cart.forEach((item, index) => {
                     const li = document.createElement('li');
-                    li.textContent = `${item.service} - $${item.price}`;
+                    li.textContent = `${item.service} - ${item.price}zł`;
                     const deleteButton = document.createElement('button');
                     deleteButton.textContent = 'Usuń';
                     deleteButton.classList.add('delete-button');
