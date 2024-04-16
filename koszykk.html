@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koszyk</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            text-align: center;
+        }
+        #cart-items {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px auto;
+            max-width: 600px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #cart-items li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            font-size: 16px;
+            position: relative;
+        }
+        #cart-items li:last-child {
+            border-bottom: none;
+        }
+        .delete-button {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            background-color: #f44336;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .delete-button:hover {
+            background-color: #d32f2f;
+        }
+        .empty-cart {
+            text-align: center;
+            font-style: italic;
+            color: #555;
+        }
+        .empty-cart:before {
+            content: "Twój koszyk jest pusty.";
+        }
+        .back-button {
+            display: block;
+            width: 150px;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 5px;
+        }
+        .back-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Koszyk</h1>
+    </header>
+    <ul id="cart-items">
+        <!-- Tutaj będą wyświetlane dodane rzeczy -->
+    </ul>
+
+    <a href="usługi.html" class="back-button">Powrót do usług</a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Pobierz koszyk z local storage
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            // Pobierz element listy koszyka
+            const cartList = document.getElementById('cart-items');
+
+            // Wyczyść listę, aby uniknąć duplikatów
+            cartList.innerHTML = '';
+
+            // Funkcja usuwająca przedmiot z koszyka
+            function removeFromCart(index) {
+                cart.splice(index, 1);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                renderCart();
+            }
+
+            // Funkcja renderująca koszyk
+            function renderCart() {
+                cartList.innerHTML = '';
+                cart.forEach((item, index) => {
+                    const li = document.createElement('li');
+                    li.textContent = `${item.service} - $${item.price}`;
+                    const deleteButton = document.createElement('button');
+                    deleteButton.textContent = 'Usuń';
+                    deleteButton.classList.add('delete-button');
+                    deleteButton.addEventListener('click', () => removeFromCart(index));
+                    li.appendChild(deleteButton);
+                    cartList.appendChild(li);
+                });
+
+                // Jeśli koszyk jest pusty, wyświetl komunikat
+                if (cart.length === 0) {
+                    const emptyCartMessage = document.createElement('p');
+                    emptyCartMessage.classList.add('empty-cart');
+                    emptyCartMessage.textContent = 'Twój koszyk jest pusty.';
+                    cartList.appendChild(emptyCartMessage);
+                }
+            }
+
+            // Wywołaj funkcję renderującą koszyk
+            renderCart();
+        });
+    </script>
+</body>
+</html>

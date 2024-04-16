@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usługi weterynaryjne</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            background-color: #8BC34A;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .services {
+            margin-top: 20px;
+        }
+        .services h3 {
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        .services ul {
+            padding-left: 20px;
+        }
+        .add-to-cart {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+        footer {
+            background-color: #4CAF50;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .back-to-home {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+        .back-to-home:hover {
+            transform: translateX(-5px);
+        }
+        
+    </style>
+</head>
+<body>
+    
+    <header>
+        <h1>Usługi weterynaryjne</h1>
+    </header>
+    <a href="klinik.html" class="back-to-home">&#9664; Strona główna</a>
+    
+    <nav>   
+        <ul>
+            <li><a href="klinik.html">Strona główna</a></li>
+            <li><a href="koszykk.html">Koszyk</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h2>Usługi weterynaryjne</h2>
+        <div class="services">
+            <table>
+                <tr>
+                    <th>Usługa</th>
+                    <th>Cena</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>Badania weterynaryjne</td>
+                    <td>50zł</td>
+                    <td><button class="add-to-cart" data-service="Badania weterynaryjne" data-price="50">Dodaj do koszyka</button></td>
+                </tr>
+                <tr>
+                    <td>Zabiegi chirurgiczne</td>
+                    <td>od 300zł</td>
+                    <td><button class="add-to-cart" data-service="Zabiegi chirurgiczne" data-price="300">Dodaj do koszyka</button></td>
+                </tr>
+                <tr>
+                    <td>Stomatologia</td>
+                    <td>100zł</td>
+                    <td><button class="add-to-cart" data-service="Stomatologia" data-price="100">Dodaj do koszyka</button></td>
+                </tr>
+                <tr>
+                    <td>Szczepienia</td>
+                    <td>60zł</td>
+                    <td><button class="add-to-cart" data-service="Szczepienia" data-price="60">Dodaj do koszyka</button></td>
+                </tr>
+                <tr>
+                    <td>Opieka nad zwierzętami domowymi</td>
+                    <td>30zł na godzinę</td>
+                    <td><button class="add-to-cart" data-service="Opieka nad zwierzętami domowymi" data-price="30">Dodaj do koszyka</button></td>
+                </tr>
+                <tr>
+                    <td>Zabiegi dermatologiczne</td>
+                    <td>od 50zł</td>
+                    <td><button class="add-to-cart" data-service="Zabiegi dermatologiczne" data-price="50">Dodaj do koszyka</button></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <footer>
+        &copy; 2024 Klinika Weterynaryjna. Wszelkie prawa zastrzeżone.
+    </footer>
+
+    <script>
+        // Pobierz wszystkie przyciski "Dodaj do koszyka"
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+
+        // Iteruj przez każdy przycisk i dodaj nasłuchiwanie zdarzenia kliknięcia
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Pobierz nazwę usługi i cenę z atrybutów data
+                const serviceName = button.dataset.service;
+                const servicePrice = parseFloat(button.dataset.price);
+
+                // Pobierz koszyk z local storage lub stwórz nowy
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+                // Dodaj usługę do koszyka
+                cart.push({ service: serviceName, price: servicePrice });
+
+                // Zapisz koszyk w local storage
+                localStorage.setItem('cart', JSON.stringify(cart));
+
+// Wyświetl potwierdzenie dodania do koszyka (można to zmodyfikować)
+alert(`Usługa "${serviceName}" została dodana do koszyka.`);
+});
+});
+</script>
+</body>
+</html>
